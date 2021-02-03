@@ -18,6 +18,9 @@ RUN dnf -y update
 RUN dnf -y --enablerepo=powertools install tokyocabinet-devel
 RUN dnf -y install xerces-c-devel
 RUN dnf -y install boost-static boost-devel
+# Ugly fix
+RUN ln -s /usr/include/tirpc/rpc /usr/include/rpc
+
 
 # Install codesynthesis
 RUN mkdir -p /tmp/xsd && \
