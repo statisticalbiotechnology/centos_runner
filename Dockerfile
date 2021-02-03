@@ -10,6 +10,7 @@ RUN yum -y groupinstall development
 RUN dnf -y install gcc gcc-c++
 RUN dnf -y install wget rpm-build cmake libxml2-devel libuuid-devel
 RUN dnf -y install sqlite-devel zlib-devel bzip2-devel
+RUN dnf -y install libtirpc libtirpc-devel
 RUN dnf -y install dnf-plugins-core
 RUN dnf -y install epel-release
 RUN dnf -y config-manager --set-enabled powertools
