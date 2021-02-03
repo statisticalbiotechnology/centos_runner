@@ -1,13 +1,13 @@
 FROM centos:centos8
 
-RUN yum update -y
+RUN yum -y update
 
-RUN yum install -y wget
+RUN yum -y install wget
 
 RUN yum -y install yum-utils
-RUN yum -y groupinstall development
+# RUN yum -y groupinstall development
 # The next couple of lines hopefully don't install anything extra
-RUN dnf -y install gcc gcc-c++
+RUN dnf -y install gcc gcc-c++ make
 RUN dnf -y install wget rpm-build cmake libxml2-devel libuuid-devel
 RUN dnf -y install sqlite-devel zlib-devel bzip2-devel
 RUN dnf -y install libtirpc libtirpc-devel
@@ -16,19 +16,21 @@ RUN dnf -y install epel-release
 RUN dnf -y config-manager --set-enabled powertools
 RUN dnf -y update
 RUN dnf -y --enablerepo=powertools install tokyocabinet-devel
-RUN dnf -y install xerces-c-devel
+RUN dnf -y install xerces-c-devel xsd
 RUN dnf -y install boost-static boost-devel
 # Ugly fix
-RUN ln -s /usr/include/tirpc/rpc /usr/include/rpc
+# RUN ln -s /usr/include/tirpc/rpc/* /usr/include/rpc/
+# RUN ln -s /usr/include/tirpc/* /usr/include/ || true
+
 
 
 # Install codesynthesis
-RUN mkdir -p /tmp/xsd && \
-    pushd /tmp/xsd && \
-    wget --quiet 'http://www.codesynthesis.com/download/xsd/4.0/linux-gnu/x86_64/xsd-4.0.0-1.x86_64.rpm' && \
-    rpm -ivh xsd-4.0.0-1.x86_64.rpm && \
-    popd && \
-    rm -rf /tmp/xsd
+# RUN mkdir -p /tmp/xsd && \
+#     pushd /tmp/xsd && \
+#     wget --quiet 'http://www.codesynthesis.com/download/xsd/4.0/linux-gnu/x86_64/xsd-4.0.0-1.x86_64.rpm' && \
+#     rpm -ivh xsd-4.0.0-1.x86_64.rpm && \
+#     popd && \
+#     rm -rf /tmp/xsd
 
 # Install boost for CentOS < 8, since these install boost <= 1.56 which
 # has problems with the header only library includes
