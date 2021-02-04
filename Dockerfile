@@ -23,8 +23,8 @@ RUN dnf -y install boost-static boost-devel
 RUN mkdir -p /tmp/glibc && \
     pushd /tmp/glibc && \
     wget --quiet 'https://ftp.gnu.org/gnu/glibc/glibc-2.28.tar.gz' && \
-    tar --wildcards -xvzf glibc-2.28.tar.gz 'glibc-2.28/include/rpc/*' && \
-    cp -n ./glibc-2.28/include/rpc/* /usr/include/rpc/ && \
+    tar --wildcards -xvzf glibc-2.28.tar.gz 'glibc-2.28/sunrpc/rpc/*' && \
+    cp -n ./glibc-2.28/sunrpc/rpc/* /usr/include/rpc/ && \
     popd && \
     rm -fr /tmp/glibc
 
