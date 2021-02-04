@@ -1,12 +1,10 @@
 FROM centos:centos8
 
-RUN yum -y update
+RUN dnf -y update
 
-RUN yum -y install wget
+RUN dnf -y install wget git
 
-RUN yum -y install yum-utils
-# RUN yum -y groupinstall development
-# The next couple of lines hopefully don't install anything extra
+# RUN yum -y install yum-utils
 RUN dnf -y install gcc gcc-c++ make
 RUN dnf -y install wget rpm-build cmake libxml2-devel libuuid-devel
 RUN dnf -y install sqlite-devel zlib-devel bzip2-devel
@@ -21,8 +19,14 @@ RUN dnf -y install boost-static boost-devel
 # Ugly fix
 # RUN ln -s /usr/include/tirpc/rpc/* /usr/include/rpc/
 # RUN ln -s /usr/include/tirpc/* /usr/include/ || true
-
-
+# Ugly fix 2, download old sun rpc definitions from glibc
+RUN mkdir -p /tmp/glibc && \
+    pushd /tmp/glibc && \
+    wget --quiet 'https://ftp.gnu.org/gnu/glibc/glibc-2.28.tar.gz' && \
+    tar --wildcards -xvzf glibc-2.28.tar.gz 'glibc-2.28/include/rpc/*' && \
+    cp ./glibc-2.28/include/rpc/* /usr/include/rpc/ && \
+    popd && \
+    rm -fr /tmp/glibc
 
 # Install codesynthesis
 # RUN mkdir -p /tmp/xsd && \
