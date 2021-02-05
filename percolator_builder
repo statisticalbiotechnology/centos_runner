@@ -1,0 +1,14 @@
+FROM lukall/centos_runner:latest
+
+# Build percolator
+RUN cd /base && \
+    git clone https://github.com/percolator/percolator.git && \
+    cd percolator && \
+    git fetch --all && \
+    git checkout rpc-fix
+RUN cd /base/percolator && \
+    mkdir -p mkdir -p ../my_rel ../my_build && \
+    ./admin/builders/centos64_build.sh -s `pwd`/.. -r `pwd`/../my_rel -b `pwd`/../my_build
+RUN cd /base/my_build/percolator && make install && make test ARGS="-V"
+RUN cd /base/percolator && \
+    zip -j ../my_rel/percolator-noxml.zip ../my_build/percolator-noxml/src/percolator
