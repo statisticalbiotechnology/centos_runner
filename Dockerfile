@@ -11,7 +11,7 @@ RUN dnf -y install sqlite-devel zlib-devel bzip2-devel
 RUN dnf -y install libtirpc libtirpc-devel
 RUN dnf -y install dnf-plugins-core
 RUN dnf -y install epel-release
-RUN dnf -y install gtest
+RUN dnf -y --enablerepo=powertools install gtest
 RUN dnf -y config-manager --set-enabled powertools
 RUN dnf -y update
 RUN dnf -y --enablerepo=powertools install tokyocabinet-devel
