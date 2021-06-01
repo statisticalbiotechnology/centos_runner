@@ -11,13 +11,14 @@ RUN dnf -y install sqlite-devel zlib-devel bzip2-devel
 RUN dnf -y install libtirpc libtirpc-devel
 RUN dnf -y install dnf-plugins-core
 RUN dnf -y install epel-release
-RUN dnf -y --enablerepo=powertools install gtest
 RUN dnf -y config-manager --set-enabled powertools
 RUN dnf -y update
 RUN dnf -y --enablerepo=powertools install tokyocabinet-devel
 RUN dnf -y install xerces-c-devel xsd
 RUN dnf -y install boost-static boost-devel
-
+RUN dnf -y --enablerepo=powertools install gtest
+RUN dnf -y install python3
+RUN alternatives --set python /usr/bin/python3
 RUN dnf clean all
 
 # Build directory
