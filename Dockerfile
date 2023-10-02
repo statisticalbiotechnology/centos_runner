@@ -1,5 +1,8 @@
 FROM centos:centos8
 
+RUN dnf -y --disablerepo '*' --enablerepo extras swap centos-linux-repos centos-stream-repos
+RUN dnf -y distro-sync
+
 RUN dnf -y update
 
 RUN dnf -y install wget git
