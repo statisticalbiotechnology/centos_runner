@@ -1,7 +1,4 @@
-FROM centos:centos8
-
-RUN dnf -y --disablerepo '*' --enablerepo extras swap centos-linux-repos centos-stream-repos
-RUN dnf -y distro-sync
+FROM quay.io/centos/centos:stream8
 
 RUN dnf -y update
 
